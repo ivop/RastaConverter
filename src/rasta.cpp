@@ -1,7 +1,9 @@
 const char *program_version="Beta7.1";
 
+#ifndef __GNUC__
 #pragma warning (disable: 4312)
 #pragma warning (disable: 4996)
+#endif
 
 #include <math.h>
 #include <cmath>
