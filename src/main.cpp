@@ -69,8 +69,7 @@ int main(int argc, char *argv[])
 			set_gfx_mode(GFX_AUTODETECT_WINDOWED, 640, 480,0,0); // Change our graphics mode to 640x480
 
 		set_display_switch_mode(SWITCH_BACKGROUND);
-		set_window_close_hook(close_button_procedure);
-		set_display_switch_callback(SWITCH_IN, switch_in_callback);
+		set_close_button_callback(close_button_procedure);
 
 		set_window_title(rasta.cfg.command_line.c_str());
 	}
