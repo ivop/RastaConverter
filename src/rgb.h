@@ -6,7 +6,7 @@ struct rgb {
 	unsigned char g;
 	unsigned char r;
 	unsigned char a;
-	bool operator==(const rgb &ar)
+	bool operator==(const rgb &ar) const
 	{
 		if (r==ar.r && g==ar.g && b==ar.b)
 			return true;
@@ -15,18 +15,19 @@ struct rgb {
 	}
 };
 
-struct LabLch
+struct rgb_hash
 {
-                struct{
-                        double L;
-                        double a;
-                        double b;
-                }lab;
-                struct{
-                        double L;
-                        double c;
-                        double h;
-                }lch;
+	size_t operator()(const rgb& c) const
+	{
+		return c.b + ((size_t)c.g << 8) + ((size_t)c.r << 16) + ((size_t)c.a << 24);
+	}
+};
+
+struct Lab
+{
+    double L;
+    double a;
+    double b;
 };
 
 
@@ -48,5 +49,7 @@ struct rgb_error {
 		r=0;
 	}
 };
+
+bool operator<(const rgb &l, const rgb &r);
 
 #endif
