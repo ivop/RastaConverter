@@ -1,9 +1,7 @@
 const char *program_version="Beta7.1";
 
-#ifndef __GNUC__
 #pragma warning (disable: 4312)
 #pragma warning (disable: 4996)
-#endif
 
 #include <math.h>
 #include <cmath>
@@ -36,6 +34,7 @@ const char *program_version="Beta7.1";
 #include <float.h>
 #include <iostream>
 #include <fstream>
+#include <strstream>
 #include <sstream>
 #include <ctype.h>
 #include <iomanip>
@@ -112,7 +111,7 @@ void Message(char *message)
 	release_screen();
 }
 
-void Message(const char *message, int i)
+void Message(char *message, int i)
 {
 	if (quiet)
 		return;
@@ -136,7 +135,7 @@ OnOffMap on_off;
 
 Evaluator eval;
 
-static const char *mem_regs_names[E_TARGET_MAX+1]=
+char *mem_regs_names[E_TARGET_MAX+1]=
 {
 	"COLOR0",
 	"COLOR1",
@@ -179,7 +178,7 @@ void create_cycles_table()
 	screen_cycles[cpu_xpos-1].length=(antic_xpos-24)*2;
 }
 
-static const char *mutation_names[E_MUTATION_MAX]=
+char *mutation_names[E_MUTATION_MAX]=
 {
 	"PushBack2Prev ",
 	"Copy2NextLine ",
@@ -807,8 +806,6 @@ unsigned char ConvertColorRegisterToRawData(e_target t)
 		return 2;
 	case E_COLOR2:
 		return 3;
-	default:
-		break;
 	}
 	assert(0); // this should never happen
 	return -1;
@@ -1057,7 +1054,7 @@ void RastaConverter::CreateEmptyRasterPicture(raster_picture *r)
 	i.loose.instruction=E_RASTER_NOP;
 	i.loose.target=E_COLBAK;
 	i.loose.value=0;
-	// int size = FreeImage_GetWidth(fbitmap);
+	int size = FreeImage_GetWidth(fbitmap);
 	// in line 0 we set init registers
 	for (size_t y=0;y<r->raster_lines.size();++y)
 	{
@@ -1388,7 +1385,7 @@ void RastaConverter::TestRasterProgram(raster_picture *pic)
 	int x,y;
 	rgb white;
 	rgb black;
-	white.g=white.b=white.r=white.a=black.a=255;
+	white.g=white.b=white.r=255;
 	black.g=black.b=black.r=0;
 
 	for (y=0;y<m_height;++y)
@@ -1536,8 +1533,10 @@ void RastaConverter::FindBestSolution()
 			}
 		}
 
-		__timeb64 t;
-		_ftime(&t);
+//		__timeb64 t;
+//		_ftime(&t);
+        timeb t;
+        ftime(&t);
 
 		timespec deadline;
 		deadline.tv_sec = t.time;
@@ -1663,13 +1662,13 @@ void RastaConverter::SavePMG(string name)
 
 bool GetInstructionFromString(const string& line, SRasterInstruction &instr)
 {
-	static const char *load_names[3]=
+	static char *load_names[3]=
 	{
 		"lda",
 		"ldx",
 		"ldy",
 	};
-	static const char *store_names[3]=
+	static char *store_names[3]=
 	{
 		"sta",
 		"stx",

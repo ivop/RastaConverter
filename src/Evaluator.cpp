@@ -1,5 +1,7 @@
 #include <assert.h>
 #include <pthread.h>
+#include <string.h>
+#include <values.h>
 #include <functional>
 #include "Evaluator.h"
 #include "Program.h"
