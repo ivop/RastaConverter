@@ -1,3 +1,5 @@
+Requires liballegro4.4 and libfreeimage.
+
 Rasta Converter
 ===============
 
