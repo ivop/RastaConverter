@@ -102,7 +102,7 @@ extern int desktop_height;
 
 bool user_closed_app=false;
 
-void Message(char *message)
+void Message(const char *message)
 {
 	if (quiet)
 		return;
@@ -137,7 +137,7 @@ OnOffMap on_off;
 
 Evaluator eval;
 
-char *mem_regs_names[E_TARGET_MAX+1]=
+const char *mem_regs_names[E_TARGET_MAX+1]=
 {
 	"COLOR0",
 	"COLOR1",
@@ -180,7 +180,7 @@ void create_cycles_table()
 	screen_cycles[cpu_xpos-1].length=(antic_xpos-24)*2;
 }
 
-char *mutation_names[E_MUTATION_MAX]=
+const char *mutation_names[E_MUTATION_MAX]=
 {
 	"PushBack2Prev ",
 	"Copy2NextLine ",
@@ -808,6 +808,8 @@ unsigned char ConvertColorRegisterToRawData(e_target t)
 		return 2;
 	case E_COLOR2:
 		return 3;
+	default:
+		return 0;
 	}
 	assert(0); // this should never happen
 	return -1;
@@ -1056,7 +1058,7 @@ void RastaConverter::CreateEmptyRasterPicture(raster_picture *r)
 	i.loose.instruction=E_RASTER_NOP;
 	i.loose.target=E_COLBAK;
 	i.loose.value=0;
-	int size = FreeImage_GetWidth(fbitmap);
+//	int size = FreeImage_GetWidth(fbitmap);
 	// in line 0 we set init registers
 	for (size_t y=0;y<r->raster_lines.size();++y)
 	{
@@ -1474,14 +1476,14 @@ void RastaConverter::FindBestSolution()
 
 	Init();
 
-	const time_t time_start = time(NULL);
+//	const time_t time_start = time(NULL);
 
 	acquire_screen();
 	textprintf_ex(screen, font, 0, 280, makecol(0xF0,0xF0,0xF0), 0, "Press 'S' to save.");
 	textprintf_ex(screen, font, 0, 300, makecol(0xF0,0xF0,0xF0), 0, "Evaluations: %llu", m_eval_gstate.m_evaluations);
 	release_screen();
 
-	bool clean_first_evaluation = cfg.continue_processing;
+//	bool clean_first_evaluation = cfg.continue_processing;
 	clock_t last_rate_check_time = clock();
 
 	bool pending_update = false;
@@ -1664,13 +1666,13 @@ void RastaConverter::SavePMG(string name)
 
 bool GetInstructionFromString(const string& line, SRasterInstruction &instr)
 {
-	static char *load_names[3]=
+	static const char *load_names[3]=
 	{
 		"lda",
 		"ldx",
 		"ldy",
 	};
-	static char *store_names[3]=
+	static const char *store_names[3]=
 	{
 		"sta",
 		"stx",
