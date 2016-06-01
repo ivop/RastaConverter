@@ -9,7 +9,7 @@ SOURCES 	= CommandLineParser.cpp  config.cpp  main.cpp  rasta.cpp  rgb.cpp \
 
 CXX			= g++
 
-CXXFLAGS 	= -c -O3 -W -Wall -std=c++0x 
+CXXFLAGS 	= -c -O3 -W -Wall -Wextra -pedantic -std=c++0x 
 LDFLAGS 	=
 LIBS	 	= -lalleg -lfreeimage -lX11 -lXcursor -lXpm -lXxf86vm -lpthread
 OBJECTS 	= $(SOURCES:.cpp=.o)
