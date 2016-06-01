@@ -535,7 +535,7 @@ distance_accum_t Evaluator::CalculateLineDistance(const screen_line &r, const sc
 		distance += T_distance_function(in_pixel,out_pixel);
 	}
 	return distance;
-};
+}
 
 inline void Evaluator::ExecuteInstruction(const SRasterInstruction &instr, int /* x */)
 {
