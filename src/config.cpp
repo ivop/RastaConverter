@@ -22,7 +22,7 @@ void Configuration::ProcessCmdLine()
 
 	args_str.push_back("/");
 	it=args_str.begin();
-	args.push_back( (char *) (it->c_str()) ); // UGLY casting
+	args.push_back( const_cast<char *> (it->c_str()) );
 	int params=1;
 
 	size_t pos;
@@ -37,7 +37,7 @@ void Configuration::ProcessCmdLine()
 		{
 			args_str.push_back(current_cmd);
 			++it;
-			args.push_back( (char *) (it->c_str()) ); // UGLY casting
+			args.push_back( const_cast<char *> (it->c_str()) );
 			current_cmd.clear();
 			++params;
 		}
