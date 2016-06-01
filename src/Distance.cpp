@@ -36,16 +36,6 @@ distance_t RGByuvDistance(const rgb &col1, const rgb &col2)
 	return (distance_t)d;
 }
 
-double cbrt(double d) {
-  if (d < 0.0) {
-    return -cbrt(-d);
-  }
-  else {
-    return pow(d,1.0/3.0);
-  }
-}
-
-
 typedef std::unordered_map < rgb, Lab, rgb_hash > rgb_lab_map_t;
 rgb_lab_map_t rgb_lab_map;
 
