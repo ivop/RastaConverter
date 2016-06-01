@@ -45,7 +45,7 @@ private:
 	vector < screen_line > m_picture; 
 	vector<distance_t> m_picture_all_errors[128]; 
 	const distance_t *m_picture_all_errors_array[128];
-	int m_width,m_height; // picture size
+	unsigned int m_width,m_height; // picture size
 
 	EvalGlobalState m_eval_gstate;
 
@@ -65,7 +65,7 @@ private:
 	void CreateLowColorRasterPicture(raster_picture *);
 	void CreateSmartRasterPicture(raster_picture *);
 	void CreateRandomRasterPicture(raster_picture *);
-	void DiffuseError( int x, int y, double quant_error, double e_r,double e_g,double e_b);
+	void DiffuseError( unsigned int x, unsigned int y, double quant_error, double e_r,double e_g,double e_b);
 	void KnollDithering();
 	void OtherDithering();
 	MixingPlan DeviseBestMixingPlan(rgb color);

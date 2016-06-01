@@ -362,7 +362,7 @@ void RastaConverter::LoadDetailsMap()
 
 	RGBQUAD fpixel;
 
-	int x,y;
+	unsigned int x,y;
 
 	details_data.resize(m_height);	
 	for (y=0;y<m_height;++y)
@@ -389,8 +389,8 @@ void RastaConverter::GeneratePictureErrorMap()
 
 	unsigned int details_multiplier=255;
 
-	const int w = input_bitmap->w;
-	const int h = input_bitmap->h;
+	const unsigned int w = input_bitmap->w;
+	const unsigned int h = input_bitmap->h;
 
 	for(int i=0; i<128; ++i)
 	{
@@ -399,13 +399,13 @@ void RastaConverter::GeneratePictureErrorMap()
 		const rgb ref = atari_palette[i];
 
 		distance_t *dst = &m_picture_all_errors[i][0];
-		for (int y=0; y<h; ++y)
+		for (unsigned int y=0; y<h; ++y)
 		{
 			const screen_line& srcrow = m_picture[y];
 
 			if (!details_data.empty())
 			{
-				for (int x=0; x<w; ++x)
+				for (unsigned int x=0; x<w; ++x)
 				{
 					details_multiplier = 255+details_data[y][x]*cfg.details_strength;
 					*dst++ = (distance_function(srcrow[x], ref)*details_multiplier)/255;
@@ -413,7 +413,7 @@ void RastaConverter::GeneratePictureErrorMap()
 			}
 			else
 			{
-				for (int x=0; x<w; ++x)
+				for (unsigned int x=0; x<w; ++x)
 				{
 					*dst++ = distance_function(srcrow[x], ref);
 				}
@@ -610,9 +610,9 @@ void RastaConverter::PrepareDestinationPicture()
 	}
 	else
 	{
-		for (int y=0;y<m_height;++y)
+		for (unsigned int y=0;y<m_height;++y)
 		{
-			for (int x=0;x<m_width;++x)
+			for (unsigned int x=0;x<m_width;++x)
 			{
 				if (user_closed_app)
 					break;
@@ -634,9 +634,9 @@ void RastaConverter::PrepareDestinationPicture()
 		ShowDestinationBitmap();
 	}
 
-	for (int y=0;y<input_bitmap->h;++y)
+	for (unsigned int y=0;y<static_cast<unsigned int>(input_bitmap->h);++y)
 	{
-		for (int x=0;x<input_bitmap->w;++x)
+		for (unsigned int x=0;x<static_cast<unsigned int>(input_bitmap->w);++x)
 		{
 			int color = getpixel(destination_bitmap,x,y);
 			rgb out_pixel=PIXEL2RGB(color);
@@ -695,7 +695,7 @@ void RastaConverter::LoadOnOffFile(const char *filename)
 			error(err.c_str());
 		}
 
-		if ((int)from > m_height-1 || (int)to > m_height-1)
+		if (from > m_height-1 || to > m_height-1)
 		{
 			string err="OnOff file: Range value greater than picture height in line ";
 			err+=Value2String<unsigned int>(y);
@@ -815,7 +815,8 @@ unsigned char ConvertColorRegisterToRawData(e_target t)
 
 bool RastaConverter::SaveScreenData(const char *filename)
 {
-	int x,y,a=0,b=0,c=0,d=0;
+	int a=0,b=0,c=0,d=0;
+	unsigned int x, y;
 	FILE *fp=fopen(filename,"wb+");
 	if (!fp)
 		error("Error saving MIC screen data");
@@ -1022,15 +1023,15 @@ void RastaConverter::ClearErrorMap()
 	if (error_map.empty())
 	{
 		error_map.resize(m_height);
-		for (int y=0;y<m_height;++y)
+		for (unsigned int y=0;y<m_height;++y)
 		{
 			error_map[y].resize(m_width+1);
 		}
 	}
 	// clear the map
-	for (int y=0;y<m_height;++y)
+	for (unsigned int y=0;y<m_height;++y)
 	{
-		for (int x=0;x<m_width;++x)
+		for (unsigned int x=0;x<m_width;++x)
 		{
 			error_map[y][x].zero();	
 		}
@@ -1071,7 +1072,7 @@ void RastaConverter::CreateSmartRasterPicture(raster_picture *r)
 	SRasterInstruction i;
 	int dest_colors;
 	int dest_regs;
-	int x,y;
+	unsigned int x,y;
 	rgb color;
 
 	memset(r->mem_regs_init,0,sizeof(r->mem_regs_init));
@@ -1085,10 +1086,10 @@ void RastaConverter::CreateSmartRasterPicture(raster_picture *r)
 
 	FreeImage_FlipVertical(fbitmap);
 
-	int size = FreeImage_GetWidth(fbitmap);
+	unsigned int size = FreeImage_GetWidth(fbitmap);
 	// in line 0 we set init registers
 	FIBITMAP *f_copy = FreeImage_Copy(fbitmap,0,1,size,0);	
-	for (y=0;y<(int)r->raster_lines.size();++y)
+	for (y=0;y<r->raster_lines.size();++y)
 	{
 		RGBQUAD fpixel;
 		rgb atari_color;
@@ -1264,9 +1265,9 @@ void RastaConverter::CreateRandomRasterPicture(raster_picture *r)
 	}
 }
 
-void RastaConverter::DiffuseError( int x, int y, double quant_error, double e_r,double e_g,double e_b)
+void RastaConverter::DiffuseError(unsigned int x, unsigned int y, double quant_error, double e_r,double e_g,double e_b)
 {
-	if (! (x>=0 && x<m_width && y>=0 && y<m_height) )
+	if (! (x<m_width && y<m_height) )
 		return;
 
 	rgb_error p = error_map[y][x];
@@ -1307,7 +1308,7 @@ void RastaConverter::OptimizeRasterProgram(raster_picture *pic)
 		{ -1, -1 }
 	};
 
-	for (int y=0;y<m_height;++y)
+	for (unsigned int y=0;y<m_height;++y)
 	{
 		size_t size=pic->raster_lines[y].instructions.size();
 		SRasterInstruction *__restrict rastinsns = &pic->raster_lines[y].instructions[0];
@@ -1349,7 +1350,7 @@ void RastaConverter::FindPossibleColors()
 			hline(screen,m_width,l,m_width*2,makecol(0xFF,0xFF,0xFF));
 		release_screen();
 
-		for (int x=0;x<m_width;++x)
+		for (unsigned int x=0;x<m_width;++x)
 			set_of_colors.insert(FindAtariColorIndex(m_picture[l][x])*2);				
 
 		// copy set to vector
@@ -1384,7 +1385,7 @@ void RastaConverter::Init()
 
 void RastaConverter::TestRasterProgram(raster_picture *pic)
 {
-	int x,y;
+	unsigned int x,y;
 	rgb white;
 	rgb black;
 	white.g=white.b=white.r=255;
@@ -1409,7 +1410,7 @@ void RastaConverter::TestRasterProgram(raster_picture *pic)
 		for (int i=0;i<CYCLES_MAX;++i)
 		{
 			x=screen_cycles[i].offset;
-			if (x>=0 && x<m_width)
+			if (x<m_width)
 				m_picture[y][x]=white;
 		}
 	}
@@ -1600,7 +1601,7 @@ void RastaConverter::FindBestSolution()
 
 void RastaConverter::ShowLastCreatedPicture()
 {
-	int x,y;
+	unsigned int x,y;
 	// Draw new picture on the screen
 	for (y=0;y<m_height;++y)
 	{
