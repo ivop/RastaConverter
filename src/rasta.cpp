@@ -126,8 +126,21 @@ void Message(char *message, int i)
 using namespace std;
 using namespace Epoch::Foundation;
 
-#define PIXEL2RGB(p) (*((rgb*) &p))
-#define RGB2PIXEL(p) (*((int*) &p))
+#define RGBQUAD2RGB(R, Q) do { \
+    R.b = Q.rgbBlue; \
+    R.g = Q.rgbGreen; \
+    R.r = Q.rgbRed; \
+    R.a = Q.rgbReserved; \
+} while(0)
+
+#define PIXEL2RGB(R, P) do { \
+    R.b = (P>> 0) & 0xff; \
+    R.g = (P>> 8) & 0xff; \
+    R.r = (P>>16) & 0xff; \
+    R.a = (P>>24) & 0xff; \
+} while(0)
+
+#define RGB2PIXEL(P) (P.b + (P.g<<8) + (P.r<<16) + (P.a<<24))
 
 set < unsigned char > color_indexes_on_dst_picture;
 
@@ -333,7 +346,7 @@ void RastaConverter::InitLocalStructure()
 		{
 			FreeImage_GetPixelColor(fbitmap, x, y, &fpixel);
 			putpixel( input_bitmap,x,y,makecol(fpixel.rgbRed,fpixel.rgbGreen,fpixel.rgbBlue));
-			atari_color=PIXEL2RGB(fpixel);
+			RGBQUAD2RGB(atari_color, fpixel);
 			m_picture[y][x]=atari_color;
 			fpixel.rgbRed=atari_color.r;
 			fpixel.rgbGreen=atari_color.g;
@@ -639,7 +652,8 @@ void RastaConverter::PrepareDestinationPicture()
 		for (unsigned int x=0;x<static_cast<unsigned int>(input_bitmap->w);++x)
 		{
 			int color = getpixel(destination_bitmap,x,y);
-			rgb out_pixel=PIXEL2RGB(color);
+			rgb out_pixel;
+			PIXEL2RGB(out_pixel, color);
 			m_picture[y][x]=out_pixel; // copy it always - it is used by the color distance cache m_picture_all_errors
 		}
 	}
