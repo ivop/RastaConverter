@@ -9,7 +9,7 @@ SOURCES 	= CommandLineParser.cpp  config.cpp  main.cpp  rasta.cpp  rgb.cpp \
 
 CXX			= g++
 
-CXXFLAGS 	= -c -O3 -W -Wall -Wextra -pedantic -std=c++0x 
+CXXFLAGS 	= -c -O3 -W -Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -std=c++0x 
 LDFLAGS 	=
 LIBS	 	= -lalleg -lfreeimage -lX11 -lXcursor -lXpm -lXxf86vm -lpthread
 OBJECTS 	= $(SOURCES:.cpp=.o)
