@@ -67,7 +67,7 @@ void quit_function(void)
 void error(const char *e)
 {
 	if (!quiet)
-		allegro_message(e);
+		allegro_message("%s", e);
 	allegro_exit();
 	exit(1);
 }
