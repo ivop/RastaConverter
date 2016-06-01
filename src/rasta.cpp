@@ -266,7 +266,7 @@ void RastaConverter::SaveLAHC(const char *fn)
 	fprintf(f, "%lu\n",(unsigned long) m_eval_gstate.m_previous_results_index);
 	for (size_t i=0;i<m_eval_gstate.m_previous_results.size();++i)
 	{
-		fprintf(f, "%Lf\n",m_eval_gstate.m_previous_results[i]);
+		fprintf(f, "%lf\n",m_eval_gstate.m_previous_results[i]);
 	}
 	fclose(f);
 }
@@ -1643,7 +1643,7 @@ void RastaConverter::SavePMG(string name)
 
 	for(sprite=0;sprite<4;++sprite)
 	{
-		fprintf(fp,"player%d\n",sprite);
+		fprintf(fp,"player%lu\n",sprite);
 		fprintf(fp,"\t.he 00 00 00 00 00 00 00 00");
 		for (y=0;y<240;++y)
 		{
@@ -1763,7 +1763,7 @@ void RastaConverter::LoadLAHC(string name)
 	for (size_t i=0;i<(size_t) no_elements;++i)
 	{
 		double dst=0;
-		fscanf(f, "%Lf\n",&dst);
+		fscanf(f, "%lf\n",&dst);
 		m_eval_gstate.m_previous_results.push_back(dst);
 	}
 	fclose(f);
@@ -1937,7 +1937,7 @@ void RastaConverter::SaveRasterProgram(string name, raster_picture *pic)
 	fprintf(fp,"; RastaConverter by Ilmenit v.%s\n",program_version);
 	fprintf(fp,"; InputName: %s\n",cfg.input_file.c_str());
 	fprintf(fp,"; CmdLine: %s\n",cfg.command_line.c_str());
-	fprintf(fp,"; Evaluations: %u\n", m_eval_gstate.m_evaluations);
+	fprintf(fp,"; Evaluations: %Lu\n", m_eval_gstate.m_evaluations);
 	fprintf(fp,"; Score: %g\n",NormalizeScore(m_eval_gstate.m_best_result));
 	fprintf(fp,"; ---------------------------------- \n");
 
