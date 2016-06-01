@@ -1543,7 +1543,7 @@ void RastaConverter::FindBestSolution()
 
 		timespec deadline;
 		deadline.tv_sec = t.time;
-		deadline.tv_nsec = t.millitm * 1000000 + 250000000;
+		deadline.tv_nsec = static_cast<long>(t.millitm) * 1000000 + 250000000;
 		if (deadline.tv_nsec >= 1000000000)
 		{
 			deadline.tv_nsec -= 1000000000;
