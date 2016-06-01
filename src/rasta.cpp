@@ -1895,7 +1895,7 @@ bool RastaConverter::Resume()
 
 void RastaConverter::SaveRasterProgram(string name, raster_picture *pic)
 {
-	int y;
+	unsigned int y;
 	Message("Saving Raster Program");
 
 	FILE *fp=fopen(string(name+".ini").c_str(),"wt+");
@@ -1948,7 +1948,7 @@ void RastaConverter::SaveRasterProgram(string name, raster_picture *pic)
 	fprintf(fp,"\tnop\n");
 	fprintf(fp,"\tcmp byt2;\n");
 
-	for(y=0;y<input_bitmap->h;++y)
+	for(y=0;y<(unsigned int)input_bitmap->h;++y)
 	{
 		fprintf(fp,"line%d\n",y);
 		size_t prog_len=pic->raster_lines[y].instructions.size();
