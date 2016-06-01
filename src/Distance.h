@@ -1,10 +1,12 @@
 #ifndef DISTANCE_H
 #define DISTANCE_H
 
+#include <climits>
+
 struct rgb;
 
 #define MAX_COLOR_DISTANCE (255*255*3)
-#define DISTANCE_MAX 0xffffffff
+#define DISTANCE_MAX INT_MAX
 
 typedef long long distance_accum_t;
 typedef unsigned int distance_t;
