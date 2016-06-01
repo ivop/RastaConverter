@@ -645,9 +645,9 @@ void Evaluator::MutateOnce(raster_line &prog, raster_picture &pic)
 			break;
 		}
 	case E_MUTATION_ADD_INSTRUCTION:
-		if (prog.cycles+2<free_cycles)
+		if (prog.cycles<free_cycles-2)
 		{
-			if (prog.cycles+4<free_cycles && Random(2)) // 4 cycles instructions
+			if (prog.cycles<free_cycles-4 && Random(2)) // 4 cycles instructions
 			{
 				temp.loose.instruction=(e_raster_instruction) (E_RASTER_STA+Random(3));
 				temp.loose.value=(Random(128)*2);
