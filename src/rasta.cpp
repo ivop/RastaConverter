@@ -42,7 +42,6 @@ const char *program_version="Beta7.1";
 #include <iterator>
 
 #include "rasta.h"
-#include "main.h"
 #include "mt19937int.h"
 #include "LinearAllocator.h"
 #include "LineCache.h"

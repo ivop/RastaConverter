@@ -51,7 +51,7 @@ $(EXECUTABLE)-pu: $(OBJECTSPU)
 .cpp.o-pu:
 	$(CXX) $(CXXFLAGSPU) $< -o $@
 
-$(OBJECTS): CommandLineParser.h  EpochTypes.h main.h rgb.h config.h ErrorConstants.h  rasta.h  string_conv.h
+$(OBJECTS): CommandLineParser.h  EpochTypes.h rgb.h config.h ErrorConstants.h  rasta.h  string_conv.h
 
 clean:
 	rm -f *~ $(OBJECTS) $(OBJECTSPG) $(GCDA) $(OBJECTSPU) $(EXECUTABLE) $(EXECUTABLE)-pg $(EXECUTABLE)-pu
