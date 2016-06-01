@@ -95,9 +95,9 @@ void Evaluator::Run()
 	m_best_pic.recache_insns(m_insn_seq_cache, m_linear_allocator);
 	pthread_mutex_unlock(&m_gstate->m_mutex);
 
-	unsigned last_eval = 0;
+//	unsigned last_eval = 0;
 	bool clean_first_evaluation = true;
-	clock_t last_rate_check_time = clock();
+//	clock_t last_rate_check_time = clock();
 
 	raster_picture new_picture;
 
@@ -257,11 +257,11 @@ void Evaluator::Run()
 	pthread_mutex_unlock(&m_gstate->m_mutex);
 }
 
-e_target Evaluator::FindClosestColorRegister(sprites_row_memory_t& spriterow, int index, int x,int y, bool &restart_line, distance_t& best_error)
+e_target Evaluator::FindClosestColorRegister(sprites_row_memory_t& spriterow, int index, int x,int /* y */, bool &restart_line, distance_t& best_error)
 {
 	distance_t distance;
 	int sprite_bit;
-	int best_sprite_bit;
+	int best_sprite_bit = 0;
 	e_target result=E_COLBAK;
 	distance_t min_distance = DISTANCE_MAX;
 	bool sprite_covers_colbak=false;
@@ -537,7 +537,7 @@ distance_accum_t Evaluator::CalculateLineDistance(const screen_line &r, const sc
 	return distance;
 };
 
-inline void Evaluator::ExecuteInstruction(const SRasterInstruction &instr, int x)
+inline void Evaluator::ExecuteInstruction(const SRasterInstruction &instr, int /* x */)
 {
 	int reg_value=-1;
 	switch(instr.loose.instruction)
