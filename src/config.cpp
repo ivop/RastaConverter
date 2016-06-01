@@ -23,7 +23,7 @@ void Configuration::ProcessCmdLine()
 	args_str.push_back("/");
 	it=args_str.begin();
 	args.push_back( const_cast<char *> (it->c_str()) );
-	int params=1;
+	unsigned int params=1;
 
 	size_t pos;
 	string current_cmd;
