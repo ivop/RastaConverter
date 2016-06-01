@@ -36,7 +36,6 @@ const char *program_version="Beta7.1";
 #include <float.h>
 #include <iostream>
 #include <fstream>
-#include <strstream>
 #include <sstream>
 #include <ctype.h>
 #include <iomanip>
