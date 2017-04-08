@@ -754,11 +754,11 @@ void Evaluator::MutateOnce(raster_line &prog, raster_picture &pic)
 		}
 		else
 		{
-			c=1;
+			c=2;
 			if (Random(2))
 				c*=-1;
 			if (Random(2))
-				c*=16;
+				c*=8;
 			prog.instructions[i1].loose.value+=c;
 		}
 		prog.cache_key = NULL;
