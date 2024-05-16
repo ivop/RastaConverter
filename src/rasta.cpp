@@ -39,6 +39,7 @@ const char *program_version="Beta8";
 #include <sstream>
 #include <sstream>
 #include <ctype.h>
+#include <limits.h>
 #include <iomanip>
 #include <iterator>
 
