@@ -56,9 +56,6 @@ const char *program_version="Beta8";
 #define _ftime ftime
 #endif
 
-unsigned char FindAtariColorIndex( const rgb& col );
-
-
 // Cycle where WSYNC starts - 105?
 #define WSYNC_START 104
 // Normal screen CPU cycle 24-104 = 80 cycles = 160 color cycles
