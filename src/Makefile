@@ -8,8 +8,8 @@ SOURCES 	= CommandLineParser.cpp  config.cpp  main.cpp  rasta.cpp  rgb.cpp \
 
 CXX			?= g++
 
-CXXFLAGS 	= -c -O3 -W -Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs -Wnoexcept -Woverloaded-virtual -Wredundant-decls -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=2 -std=c++17 $$($(SDL2CONFIG) --cflags) $(XINCLUDES)
-LDFLAGS 	=
+CXXFLAGS 	= -march=native -flto=auto -c -O3 -W -Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs -Wnoexcept -Woverloaded-virtual -Wredundant-decls -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=2 -std=c++17 $$($(SDL2CONFIG) --cflags) $(XINCLUDES)
+LDFLAGS 	= -flto=auto
 XFREEIMAGE	?= -lfreeimage
 LIBS	 	= $$($(SDL2CONFIG) --libs) -lSDL2_ttf $(XLIBS) $(XFREEIMAGE)
 OBJECTS 	= $(SOURCES:.cpp=.o)
