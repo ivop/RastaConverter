@@ -1,13 +1,10 @@
-
-.SUFFIXES:
-
 .SUFFIXES: .cpp .o .o-pg .o-pu
 
 SOURCES 	= CommandLineParser.cpp  config.cpp  main.cpp  rasta.cpp  rgb.cpp \
 			  Distance.cpp Evaluator.cpp mt19937int.cpp pch.cpp Program.cpp \
 			  TargetPicture.cpp RastaSDL.cpp
 
-CXX			= g++
+CXX			?= g++
 
 CXXFLAGS 	= -c -O3 -W -Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs -Wnoexcept -Woverloaded-virtual -Wredundant-decls -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -std=c++17 $$(sdl2-config --cflags)
 LDFLAGS 	=
