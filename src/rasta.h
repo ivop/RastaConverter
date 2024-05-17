@@ -42,7 +42,7 @@ private:
 
 #ifdef NO_GUI
 	RastaConsole gui;
-#else;
+#else
 	RastaSDL gui;
 #endif
 
