@@ -373,7 +373,7 @@ void RastaConverter::LoadDetailsMap()
 		ShowDestinationBitmap();
 	}
 	FreeImage_Unload(fbitmap);
-};
+}
 
 void RastaConverter::GeneratePictureErrorMap()
 {
