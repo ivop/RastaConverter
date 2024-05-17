@@ -549,7 +549,7 @@ void RastaConverter::ShowDestinationLine(int y)
 {
 	if (!cfg.preprocess_only)
 	{
-		unsigned int width = FreeImage_GetWidth(destination_bitmap);
+		//unsigned int width = FreeImage_GetWidth(destination_bitmap);
 		unsigned int where_x = FreeImage_GetWidth(input_bitmap);
 
 		gui.DisplayBitmapLine(where_x, y, y, destination_bitmap);
@@ -924,7 +924,7 @@ MixingPlan RastaConverter::DeviseBestMixingPlan(rgb color)
 
 void RastaConverter::ParallelFor(int from, int to, void *(*start_routine)(void*))
 {
-	void *status;
+	//void *status;
 	vector<std::thread> threads;
 	vector<parallel_for_arg_t> threads_arg;
 	/* Initialize and set thread detached attribute */
@@ -1429,10 +1429,10 @@ void RastaConverter::MainLoop()
 
 	Init();
 
-	const time_t time_start = time(NULL);
+	//const time_t time_start = time(NULL);
 	m_previous_save_time = std::chrono::steady_clock::now();
 
-	bool clean_first_evaluation = cfg.continue_processing;
+	//bool clean_first_evaluation = cfg.continue_processing;
 	clock_t last_rate_check_time = clock();
 
 	bool pending_update = false;
