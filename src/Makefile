@@ -6,7 +6,7 @@ SOURCES 	= CommandLineParser.cpp  config.cpp  main.cpp  rasta.cpp  rgb.cpp \
 
 CXX			?= g++
 
-CXXFLAGS 	= -c -O3 -W -Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs -Wnoexcept -Woverloaded-virtual -Wredundant-decls -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -std=c++17 $$(sdl2-config --cflags)
+CXXFLAGS 	= -c -O3 -W -Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs -Wnoexcept -Woverloaded-virtual -Wredundant-decls -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=2 -std=c++17 $$(sdl2-config --cflags)
 LDFLAGS 	=
 LIBS	 	= $$(sdl2-config --libs) -lfreeimage -lSDL2_ttf
 OBJECTS 	= $(SOURCES:.cpp=.o)
