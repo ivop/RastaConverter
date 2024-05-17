@@ -19,7 +19,7 @@ struct rgb {
 
 struct rgb_hash
 {
-	size_t operator()(const rgb& c) const
+	size_t operator()(const rgb& c) const noexcept
 	{
 		return c.b + ((size_t)c.g << 8) + ((size_t)c.r << 16) + ((size_t)c.a << 24);
 	}
